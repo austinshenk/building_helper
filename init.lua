@@ -3,7 +3,7 @@
 --Adds a functionality where if you run out of whatever you are placing in your hand
 -- it will retrieve a new stack from your inventory if available
 --------------------------------------
-if minetest.setting_get("creative_mode") == "1" then return end
+if minetest.setting_getbool("creative_mode") then return end
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
 	if placer == nil then return end
 	if itemstack:get_count()-1 <= 0 then
