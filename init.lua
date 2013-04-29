@@ -47,6 +47,7 @@ function minetest.node_dig(pos, node, digger)
 		end
 	else if digger:get_wielded_item():get_wear()/65535 > .8 then
 		--HUD WARNING
+		--[[
 		local id = digger:hud_add({
 			hud_elem_type = "image",
 			position = {x=0.5, y=0.6},
@@ -56,7 +57,7 @@ function minetest.node_dig(pos, node, digger)
 			alignment = {x=0, y=0},
 		})
 		minetest.after(1.0, removeWarning, pname, id)
-		end
+		end--]]
 	end
 end
 
