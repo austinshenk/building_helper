@@ -57,7 +57,8 @@ function minetest.node_dig(pos, node, digger)
 			alignment = {x=0, y=0},
 		})
 		minetest.after(1.0, removeWarning, pname, id)
-		end--]]
+		--]]
+		end
 	end
 end
 
