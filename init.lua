@@ -3,7 +3,35 @@
 --Adds a functionality where if you run out of whatever you are placing in your hand
 -- it will retrieve a new stack from your inventory if available
 --------------------------------------
-if minetest.setting_getbool("creative_mode") then return end
+if minetest.setting_getbool("creative_mode") then 
+	minetest.register_item(":", {
+		type = "none",
+		wield_image = "wieldhand.png",
+		wield_scale = {x=1,y=1,z=2.5},
+		tool_capabilities = {
+			full_punch_interval = 0.5,
+			max_drop_level = 3,
+			groupcaps = {
+				crumbly = {times={[1]=0.5, [2]=0.5, [3]=0.5}, uses=0, maxlevel=3},
+				cracky = {times={[1]=0.5, [2]=0.5, [3]=0.5}, uses=0, maxlevel=3},
+				snappy = {times={[1]=0.5, [2]=0.5, [3]=0.5}, uses=0, maxlevel=3},
+				choppy = {times={[1]=0.5, [2]=0.5, [3]=0.5}, uses=0, maxlevel=3},
+				oddly_breakable_by_hand = {times={[1]=0.5, [2]=0.5, [3]=0.5}, uses=0, maxlevel=3},
+			}
+		},
+		on_place = function(itemstack, placer, pointed_thing)
+			local node = minetest.env:get_node(pointed_thing.under)
+			return {name=node.name}
+		end
+	})
+	minetest.register_chatcommand("invclear", {
+		description = "Clear items from inventory",
+		func = function(name, param)
+			minetest.env:get_player_by_name(name):get_inventory():set_list("main", {})
+		end,
+	})
+	return
+end
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
 	if placer == nil then return end
 	if itemstack:get_count()-1 <= 0 then
